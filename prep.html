@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>준비물 체크리스트 · 나트랑 2026.08</title>
+<meta name="description" content="나트랑 여행 출발 전 준비물 체크리스트">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10333B">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="나트랑">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10333B; --ink-soft:#4A6670; --surface:#F6F4EF; --paper:#FFFFFF; --line:#E4DFD4;
+  --sun:#E08A3C; --sea:#1B6E7E; --sea2:#2C9AA6;
+  --serif:'Gowun Batang','Nanum Myeongjo',serif;
+  --sans:'Noto Sans KR',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+
+/* 헤더 */
+.top{position:relative;overflow:hidden;color:#FFF7EC;padding:40px 24px 30px;
+  background:radial-gradient(120% 120% at 85% -20%, #FFD98A 0%, #FF9E6B 32%, #E76F84 60%, #7E5C9E 100%)}
+.top::before{content:"";position:absolute;top:20px;right:16%;width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,#FFF3D6 0%,#FFE39C 45%,rgba(255,214,120,0) 72%);box-shadow:0 0 46px 20px rgba(255,222,140,.5)}
+.top .inner{position:relative;z-index:2;max-width:760px;margin:0 auto}
+.back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#FFF0DA;font-size:13px;margin-bottom:14px;font-weight:400}
+.top h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,5vw,36px);margin:0;color:#fff;text-shadow:0 2px 14px rgba(120,40,60,.3)}
+.top .sub{font-size:13.5px;color:#FFEEDD;margin:6px 0 0}
+.sea{position:absolute;left:0;right:0;bottom:-1px;height:44px;z-index:1;pointer-events:none}
+.sea svg{width:100%;height:100%;display:block}
+
+/* 진행률 */
+.progress-wrap{position:sticky;top:0;z-index:10;background:var(--surface);padding:14px 24px;border-bottom:1px solid var(--line)}
+.progress-inner{max-width:760px;margin:0 auto}
+.progress-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.progress-head .lbl{font-size:13px;color:var(--ink-soft)}
+.progress-head .pct{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--sea)}
+.bar{height:10px;background:#E4DFD4;border-radius:999px;overflow:hidden}
+.bar > i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,#3FA796,#2C9AA6,#1B6E7E);transition:width .35s ease}
+.done-msg{font-size:12.5px;color:var(--sea);margin-top:7px;display:none}
+.done-msg.show{display:block}
+
+/* 본문 */
+.wrap{max-width:760px;margin:0 auto;padding:26px 24px 90px}
+.group{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 4px;margin-bottom:18px;box-shadow:0 2px 10px rgba(16,51,59,.04)}
+.group h2{font-family:var(--serif);font-size:16px;margin:12px 16px 6px;display:flex;align-items:center;gap:9px}
+.group h2 .g-emoji{font-size:18px}
+.group.pai h2{color:var(--sun)}
+
+/* 체크 아이템 */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;cursor:pointer;border-radius:10px;
+  -webkit-tap-highlight-color:transparent;transition:background .12s}
+.chk:hover{background:#FAF8F3}
+.chk:active{background:#F2EFE7}
+.chk input{display:none}
+.box{flex:none;width:22px;height:22px;margin-top:1px;border-radius:6px;border:2px solid #C7BFAF;
+  background:#fff;position:relative;transition:all .18s}
+.box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0);transition:transform .18s}
+.chk input:checked + .box{background:linear-gradient(135deg,#3FA796,#1B6E7E);border-color:#1B6E7E}
+.chk input:checked + .box::after{transform:rotate(45deg) scale(1)}
+.txt{font-size:14.5px;line-height:1.55;color:var(--ink);transition:color .18s}
+.txt b{font-weight:500}
+.txt small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px;font-weight:300}
+.chk input:checked ~ .txt{color:#AEB6B3;text-decoration:line-through;text-decoration-color:#B9C2BF;text-decoration-thickness:1.5px}
+.chk input:checked ~ .txt b{color:#AEB6B3}
+.chk input:checked ~ .txt small{color:#C3CAC7;text-decoration:line-through}
+
+/* 하단 리셋 */
+.reset{display:block;margin:8px auto 0;background:none;border:1px solid var(--line);color:var(--ink-soft);
+  font-family:var(--sans);font-size:12.5px;padding:9px 18px;border-radius:999px;cursor:pointer}
+.reset:hover{background:var(--paper)}
+.foot-note{font-size:11.5px;color:#9AA6A2;line-height:1.7;margin:22px auto 0;max-width:760px}
+
+@media(max-width:520px){
+  .top{padding:32px 18px 26px}.wrap{padding:22px 16px 80px}.progress-wrap{padding:12px 16px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <a class="back" href="index.html">← 일정으로 돌아가기</a>
+    <h1>출발 전 준비물 체크리스트</h1>
+    <p class="sub">체크하면 취소선이 그어지고, 진행 상태는 이 기기에 자동 저장됩니다.</p>
+  </div>
+  <div class="sea"><svg viewBox="0 0 1440 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#F6F4EF" d="M0,20 C240,4 480,40 720,24 C960,8 1200,40 1440,22 L1440,44 L0,44 Z"/>
+  </svg></div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-head">
+      <span class="lbl">준비 진행률 <span id="count">0 / 0</span></span>
+      <span class="pct" id="pct">0%</span>
+    </div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="done-msg" id="donemsg">🌴 준비 완료! 즐거운 나트랑 여행 되세요.</div>
+  </div>
+</div>
+
+<main class="wrap" id="list">
+
+  <section class="group pai">
+    <h2><span class="g-emoji">🛂</span>베트남 입국 사전 신고 (PAI)</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>깜란공항(CXR)은 2026.6.22부터 PAI 의무</b><small>"나트랑 면제"는 옛 정보 — 지금은 반드시 신고</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">출발 <b>72시간 전</b>부터 온라인 작성 → <b>QR코드</b> 발급·저장<small>입국심사 때 여권과 함께 제시</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">PAI 준비물 확인<small>여권(도착일 기준 6개월 이상 유효) · 나트랑 출발일 · 숙소명 · 이메일</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">동행 일괄 신고 여부 결정<small>대표 1명이 '승객 추가'로 신고 가능 (QR은 1인 1건)</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">건강신고서 — <b>현재 미시행, 준비 불필요</b><small>⚠️ SNS의 '건강신고 사이트' 링크는 비공식·피싱 주의</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">출국 전 대사관 공지로 최종 확인<small>정책 변동이 잦은 사안</small></span></label>
+  </section>
+
+  <section class="group">
+    <h2><span class="g-emoji">📱</span>이동 · 교통 앱</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>Grab</b> 설치 + 카드 등록<small>자동 결제, 요금 투명</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>Xanh SM</b> 설치<small>전기 택시, 청결도 우수 · 등록 시 1,000 VND 확인 수수료(즉시 환불)</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>InDrive</b> 설치 (선택)<small>요금란에 '1' 입력 시 최저 추천가 · 현금 위주</small></span></label>
+  </section>
+
+  <section class="group">
+    <h2><span class="g-emoji">💳</span>환전 · 결제</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">현금 환전 (5만 원권 / 100달러 신권)<small>소액권보다 환율 유리 · 사설 환전소 단속 강화로 공항·롯데마트 은행·호텔 이용</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">트래블카드 준비<small>수수료 면제 ATM: BIDV(유니온페이 필수), VP Bank</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">VND 환산법 기억<small>0 하나 빼고 2로 나누면 대략 원화</small></span></label>
+  </section>
+
+  <section class="group">
+    <h2><span class="g-emoji">🩱</span>물놀이 · 스노클링</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>스노클링 마스크</b> (본인 것)<small>대여품은 물이 새기 쉬움 · 출국 전 집에서 착용 테스트</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">마스크 김서림 방지제</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt"><b>아쿠아슈즈</b></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">수영복 · 래시가드<small>등 화상 방지 겸용</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">방수팩 (목걸이 스트랩)</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">머드스파용 <b>버려도 되는 속옷</b><small>머드 착색 대비</small></span></label>
+  </section>
+
+  <section class="group">
+    <h2><span class="g-emoji">👕</span>복장 · 상비품 (8월)</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">SPF 50+ 선크림 · 선글라스 · 모자</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">롱선사용 <b>무릎 덮는 하의</b><small>남성 반바지 불가 · 여성은 어깨 가릴 스카프도</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">저녁 식사용 단정한 옷 한 벌<small>남성 칼라 셔츠 / 여성 원피스 — 리조트 레스토랑용</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">오후 스콜 대비 휴대용 우산</span></label>
+  </section>
+
+  <section class="group">
+    <h2><span class="g-emoji">🏨</span>예약 · 현지 확인 항목</h2>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">아미아나 머드스파 예약 (전날 로비 데스크)<small>코스 시간·오후 가격·오션뷰 캐빈·일회용 속옷 제공 여부 문의</small></span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">아미아나 레이트 체크아웃 가능 여부 확인</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">8/22 공항행 차량 사전 예약 (토요일 밤)</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">그린 월드 조기 체크인(14:00 이전) 가능 여부</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">씨에스타 호텔 정확한 지점 예약서 대조</span></label>
+    <label class="chk"><input type="checkbox"><span class="box"></span><span class="txt">8/22 시내 마사지샵 예약 (퀸/브리즈 등)</span></label>
+  </section>
+
+  <button class="reset" id="reset">전체 체크 초기화</button>
+  <p class="foot-note">체크 상태는 이 브라우저에만 저장됩니다(localStorage). 기기·브라우저를 바꾸면 초기화됩니다. PAI·AREX 등 시점 정보는 출국 전 공식 채널로 재확인하세요.</p>
+</main>
+
+<script>
+(function(){
+  var KEY = 'nhatrang-prep-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#list input[type=checkbox]'));
+
+  // 각 체크박스에 고정 인덱스 부여 후 저장값 복원
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ saved = {}; }
+  boxes.forEach(function(b, i){
+    b.dataset.i = i;
+    if (saved[i]) b.checked = true;
+    b.addEventListener('change', function(){ persist(); render(); });
+  });
+
+  function persist(){
+    var o = {};
+    boxes.forEach(function(b, i){ if (b.checked) o[i] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
+  }
+
+  function render(){
+    var total = boxes.length;
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('count').textContent = done + ' / ' + total;
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('barfill').style.width = pct + '%';
+    document.getElementById('donemsg').classList.toggle('show', done === total && total > 0);
+  }
+
+  document.getElementById('reset').addEventListener('click', function(){
+    if (!confirm('모든 체크를 초기화할까요?')) return;
+    boxes.forEach(function(b){ b.checked = false; });
+    try { localStorage.removeItem(KEY); } catch(e){}
+    render();
+  });
+
+  render();
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+</script>
+</body>
+</html>

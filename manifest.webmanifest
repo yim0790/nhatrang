@@ -1,0 +1,17 @@
+{
+  "name": "나트랑 여행 일정 2026.08",
+  "short_name": "나트랑",
+  "description": "2026년 8월 나트랑 3박 5일 여행 일정과 지도",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#10333B",
+  "theme_color": "#10333B",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

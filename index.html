@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나트랑 2026.08.19–08.23</title>
+<meta name="description" content="2026년 8월 나트랑 3박 5일 여행 일정과 지도">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10333B">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="나트랑">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10333B; --ink-soft:#4A6670; --surface:#F6F4EF; --paper:#FFFFFF; --line:#DCD6CA;
+  --d0:#33415C; --d1:#1E7A8C; --d2:#3FA796; --d3:#E08A3C; --zone:#9B7FA8;
+  --serif:'Gowun Batang','Nanum Myeongjo',serif;
+  --sans:'Noto Sans KR',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+
+.hero{
+  position:relative; overflow:hidden; color:#FFF7EC;
+  padding:72px 32px 96px;
+  background:
+    radial-gradient(120% 90% at 80% -10%, #FFD98A 0%, #FFB067 22%, #FF8C6B 40%, #E76F84 60%, #9E5C9E 78%, #4A5B93 100%);
+}
+.hero::before{
+  content:""; position:absolute; top:34px; right:12%;
+  width:130px; height:130px; border-radius:50%;
+  background:radial-gradient(circle, #FFF3D6 0%, #FFE39C 45%, rgba(255,214,120,0) 72%);
+  box-shadow:0 0 70px 30px rgba(255,222,140,.55);
+  animation:sun 8s ease-in-out infinite;
+}
+@keyframes sun{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero .sea{position:absolute; left:0; right:0; bottom:0; height:120px; z-index:1; pointer-events:none}
+.hero .sea svg{width:100%; height:100%; display:block}
+.hero .palm{position:absolute; bottom:56px; z-index:2; pointer-events:none; opacity:.92}
+.hero .palm svg{display:block}
+.hero .palm.l{left:16px; width:118px}
+.hero .palm.r{right:24px; bottom:60px; width:88px; transform:scaleX(-1)}
+.hero .inner{position:relative; z-index:3}
+.hero .eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#FFF0DA;margin:0 0 18px;text-shadow:0 1px 8px rgba(120,50,60,.35)}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(38px,7vw,68px);line-height:1.1;margin:0 0 10px;color:#FFFFFF;text-shadow:0 2px 18px rgba(120,40,60,.35)}
+.hero h1 em{font-style:normal;color:#FFE9A8}
+.hero .sub{font-size:15px;color:#FFEEDD;margin:0;text-shadow:0 1px 10px rgba(120,50,60,.3)}
+.strip{position:relative; z-index:3; display:flex;flex-wrap:wrap;margin-top:40px;
+  background:rgba(255,255,255,.15); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.30); border-radius:14px; overflow:hidden}
+.strip div{flex:1 1 150px;padding:16px 18px 14px;border-right:1px solid rgba(255,255,255,.22)}
+.strip div:last-child{border-right:none}
+.strip .k{font-size:11px;letter-spacing:.16em;color:#FFEAC2;margin-bottom:6px}
+.strip .v{font-family:var(--serif);font-size:21px;font-weight:700;color:#FFFFFF}
+.strip .n{font-size:12px;color:#FFE4CC;margin-top:2px}
+.hero .tools{position:relative;z-index:3;margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.hero .tools a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  background:rgba(255,255,255,.94); color:#B24A3A; font-size:13.5px; font-weight:500;
+  padding:10px 16px; border-radius:999px; box-shadow:0 4px 14px rgba(120,50,40,.25);
+  transition:transform .15s, box-shadow .15s}
+.hero .tools a:hover{transform:translateY(-2px); box-shadow:0 7px 20px rgba(120,50,40,.32)}
+.hero .tools a .em{font-size:15px}
+
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.rail{padding:40px 32px 60px}
+.mapcol{position:sticky;top:0;height:100vh;border-left:1px solid var(--line)}
+#map{width:100%;height:100%}
+
+.day{margin-bottom:44px}
+.dayhead{display:flex;align-items:baseline;gap:12px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.dayhead .num{font-family:var(--serif);font-size:13px;letter-spacing:.2em;color:var(--ink-soft)}
+.dayhead .date{font-family:var(--serif);font-size:26px;font-weight:700}
+.dayhead .tag{margin-left:auto;font-size:11px;letter-spacing:.14em;padding:4px 10px;border-radius:2px;color:#fff}
+
+.item{display:grid;grid-template-columns:78px 1fr;border-bottom:1px solid var(--line)}
+.item.pin{cursor:pointer}
+.item.pin:hover,.item.pin:focus-visible{background:var(--paper);outline:none}
+.item .time{font-family:var(--serif);font-size:14px;font-weight:700;padding:14px 12px 14px 0;color:var(--ink-soft);border-right:1px solid var(--line);text-align:right}
+.item .body{padding:14px 0 14px 16px}
+.item .title{font-size:15px;font-weight:500;margin:0 0 3px;display:flex;align-items:center;gap:7px}
+.item .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.item .desc{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.65}
+.item .desc b{font-weight:500;color:var(--ink)}
+.move .title{color:var(--ink-soft);font-weight:400}
+.move .title::before{content:"→";margin-right:2px}
+
+.note{background:var(--paper);border-left:3px solid var(--d3);padding:14px 16px;margin:18px 0 0;font-size:13px;line-height:1.7;color:var(--ink-soft)}
+.note b{color:var(--ink);font-weight:500}
+.walk{margin:16px 0 0;border-collapse:collapse;width:100%;font-size:12.5px}
+.walk th{text-align:left;font-weight:500;color:var(--ink-soft);border-bottom:1px solid var(--line);padding:7px 8px 7px 0;font-size:11px;letter-spacing:.1em}
+.walk td{padding:7px 8px 7px 0;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+.walk td:first-child{color:var(--ink)}
+
+.foot{border-top:1px solid var(--line);padding:44px 32px 70px;background:var(--paper)}
+.foot h2{font-family:var(--serif);font-size:22px;margin:0 0 22px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.cols h3{font-size:12px;letter-spacing:.16em;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+.cols ul{margin:0;padding-left:16px;font-size:13px;line-height:1.85;color:var(--ink-soft)}
+.cols li b{color:var(--ink);font-weight:500}
+.prepcard{display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;
+  background:linear-gradient(120deg,#12414B,#1B6E7E);color:#F6F4EF;border-radius:16px;
+  padding:22px 26px;box-shadow:0 8px 24px rgba(16,51,59,.18);transition:transform .15s, box-shadow .15s}
+.prepcard:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(16,51,59,.26)}
+.pc-left{display:flex;align-items:center;gap:16px}
+.pc-emoji{font-size:34px;line-height:1}
+.pc-title{font-family:var(--serif);font-weight:700;font-size:19px;color:#fff}
+.pc-sub{font-size:13px;color:#CFE7EA;margin-top:3px}
+.pc-arrow{font-size:26px;color:#8FD3D9;flex:none}
+.disclaim{margin-top:34px;font-size:11.5px;color:#8B9AA0;line-height:1.7;border-top:1px solid var(--line);padding-top:14px}
+
+.mk{width:22px;height:22px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;font-family:var(--sans)}
+.mk.sq{border-radius:3px;width:20px;height:20px;font-size:9px;opacity:.92}
+.leaflet-popup-content{font-family:var(--sans);font-size:13px;line-height:1.6}
+.leaflet-control-layers{font-family:var(--sans);font-size:12px}
+
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  .mapcol{position:relative;height:62vh;border-left:none;border-top:1px solid var(--line);order:-1}
+  .hero{padding:38px 20px 28px}.rail{padding:30px 20px 50px}.foot{padding:34px 20px 56px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <p class="eyebrow">Nha Trang · Khánh Hòa · Vietnam</p>
+    <h1>나트랑 <em>3박 5일</em><br>여름 휴양</h1>
+    <p class="sub">2026년 8월 19일 수요일 → 8월 23일 일요일 · 씨에스타 1박 + 아미아나 2박 + 그린 월드 1박</p>
+    <div class="strip">
+      <div><div class="k">현지 도착</div><div class="v">8/19 23:45</div><div class="n">캄란국제공항 CXR</div></div>
+      <div><div class="k">현지 출발</div><div class="v">8/23 00:55</div><div class="n">8/23 08:00 인천 도착</div></div>
+      <div><div class="k">실질 체류</div><div class="v">약 73시간</div><div class="n">온전한 활동일 3일</div></div>
+      <div><div class="k">이동 축</div><div class="v">공항→시내 45분</div><div class="n">시내→아미아나 20분</div></div>
+    </div>
+    <div class="tools">
+      <a href="prep.html"><span class="em">✅</span> 준비물 체크리스트</a>
+    </div>
+  </div>
+  <!-- 야자수 -->
+  <div class="palm l"><svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg" fill="#1f3a4d">
+    <path d="M58 150 C56 110 57 78 60 60 l6 0 C64 82 63 112 64 150 z"/>
+    <path d="M62 58 C40 40 18 40 2 52 C22 46 42 50 60 62 z"/>
+    <path d="M62 58 C46 32 24 22 6 22 C28 26 46 40 60 60 z"/>
+    <path d="M62 58 C62 30 74 8 96 0 C78 12 68 34 64 60 z"/>
+    <path d="M62 58 C82 40 108 40 120 54 C102 46 80 50 62 60 z"/>
+    <path d="M62 58 C78 34 104 26 120 30 C100 30 78 42 64 60 z"/>
+    <circle cx="61" cy="58" r="5" fill="#14313f"/>
+  </svg></div>
+  <div class="palm r"><svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg" fill="#1f3a4d">
+    <path d="M58 150 C56 110 57 78 60 60 l6 0 C64 82 63 112 64 150 z"/>
+    <path d="M62 58 C40 40 18 40 2 52 C22 46 42 50 60 62 z"/>
+    <path d="M62 58 C46 32 24 22 6 22 C28 26 46 40 60 60 z"/>
+    <path d="M62 58 C62 30 74 8 96 0 C78 12 68 34 64 60 z"/>
+    <path d="M62 58 C82 40 108 40 120 54 C102 46 80 50 62 60 z"/>
+    <path d="M62 58 C78 34 104 26 120 30 C100 30 78 42 64 60 z"/>
+    <circle cx="61" cy="58" r="5" fill="#14313f"/>
+  </svg></div>
+  <!-- 바다 물결 -->
+  <div class="sea"><svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#5EC4C9" fill-opacity="0.55" d="M0,64 C240,20 480,100 720,64 C960,28 1200,96 1440,56 L1440,120 L0,120 Z"/>
+    <path fill="#2C9AA6" fill-opacity="0.75" d="M0,84 C240,52 480,116 720,84 C960,52 1200,110 1440,80 L1440,120 L0,120 Z"/>
+    <path fill="#1B6E7E" d="M0,100 C240,80 480,120 720,100 C960,82 1200,118 1440,98 L1440,120 L0,120 Z"/>
+  </svg></div>
+</header>
+
+<div class="wrap">
+<main class="rail">
+
+  <section class="day">
+    <div class="dayhead"><span class="num">DAY 1</span><span class="date">8/19 수</span><span class="tag" style="background:var(--d0)">출국 · 심야 이동</span></div>
+    <div class="item"><div class="time">16:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d0)"></span>퇴근 (조은경)</p>
+      <p class="desc">왕십리역 → 서울역 지하철 약 25분 → 서울역 17:00 도착.</p></div></div>
+    <div class="item"><div class="time">17:25</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d0)"></span>AREX 인천공항 직통열차 탑승</p>
+      <p class="desc">서울역 출발 17:25 → <b>제1터미널 18:08 · 제2터미널 18:16</b> 도착. 전 좌석 지정석.</p></div></div>
+    <div class="item"><div class="time">18:16</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d0)"></span>인천공항 도착</p>
+      <p class="desc">비행기 출발 20:40 · 도착~탑승까지 약 2시간 24분 여유.</p></div></div>
+    <div class="item move"><div class="time">20:40</div><div class="body">
+      <p class="title">인천 출발 → 나트랑 (약 5시간)</p>
+      <p class="desc">현지 도착 23:45 (시차 -2시간).</p></div></div>
+    <div class="item pin" data-id="cxr" tabindex="0"><div class="time">23:45</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d0)"></span>캄란국제공항 도착</p>
+      <p class="desc">입국심사·수하물 30~40분. 그랩 앱은 <b>출국 전 카드 등록까지</b> 완료해 두기. 입국 시 <b>PAI QR코드</b> 제시.</p></div></div>
+    <div class="item move"><div class="time">00:25</div><div class="body">
+      <p class="title">공항 → 시내 (그랩 약 45분)</p>
+      <p class="desc">18번 공항버스는 18:30 운행 종료라 이 시간대엔 선택지가 아님.</p></div></div>
+    <div class="item pin" data-id="seaesta" tabindex="0"><div class="time">01:10</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d0)"></span>씨에스타 호텔 체크인</p>
+      <p class="desc">116A Hồng Bàng · 시내 중심. 당일은 이동만.</p></div></div>
+    <div class="note"><b>확인 필요</b> — 숙소가 SEAESTA Nha Trang Hotel(116A Hồng Bàng)이 맞는지 예약 확인서와 대조해 주세요.</div>
+    <table class="walk">
+      <tr><th>AREX 직통열차 (서울역 출발)</th><th>제1터미널</th><th>제2터미널</th></tr>
+      <tr><td>16:50</td><td>17:33</td><td>17:41</td></tr>
+      <tr><td><b>17:25 ← 탑승</b></td><td><b>18:08</b></td><td><b>18:16</b></td></tr>
+      <tr><td>18:00</td><td>18:43</td><td>18:51</td></tr>
+      <tr><td>18:55</td><td>19:38</td><td>19:46</td></tr>
+    </table>
+  </section>
+
+  <section class="day">
+    <div class="dayhead"><span class="num">DAY 2</span><span class="date">8/20 목</span><span class="tag" style="background:var(--d1)">시내 압축 + 리조트 입성</span></div>
+    <div class="item pin" data-id="ponagar" tabindex="0"><div class="time">09:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d1)"></span>포나가르 사원</p>
+      <p class="desc">06:00–17:30 · 입장 30,000 VND. 시내 북쪽이라 <b>아미아나 방향과 동선이 겹쳐 효율 최상</b>.</p></div></div>
+    <div class="item pin" data-id="longson" tabindex="0"><div class="time">11:00</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d1)"></span>롱선사</p>
+      <p class="desc">무릎 덮는 복장 필수(입구 제지). 좌불까지 계단 있음.</p></div></div>
+    <div class="item pin" data-id="cathedral" tabindex="0"><div class="time">11:45</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d1)"></span>나트랑 대성당</p>
+      <p class="desc">롱선사에서 차로 5분. 짧게 보고 이동.</p></div></div>
+    <div class="item pin" data-id="chaomao" tabindex="0"><div class="time">12:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d1)"></span>짜오마오 — 반쎄오 점심</p>
+      <p class="desc">166 Mê Linh · 11:00–22:00.</p></div></div>
+    <div class="item move"><div class="time">14:00</div><div class="body">
+      <p class="title">체크아웃 → 아미아나 (약 20분)</p>
+      <p class="desc">아침에 짐을 프런트에 맡기면 이동이 한 번으로 정리됨.</p></div></div>
+    <div class="item pin" data-id="amiana" tabindex="0"><div class="time">15:00</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d1)"></span>아미아나 리조트 체크인</p>
+      <p class="desc">Phạm Văn Đồng, 혼총 북쪽. 오후는 프라이빗 비치 + 머드풀 + 선셋.</p></div></div>
+  </section>
+
+  <section class="day">
+    <div class="dayhead"><span class="num">DAY 3</span><span class="date">8/21 금</span><span class="tag" style="background:var(--d2)">유일한 풀데이</span></div>
+    <div class="item pin" data-id="amiana" tabindex="0"><div class="time">오전</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d2)"></span>아미아나 — 스노클링 · 풀</p>
+      <p class="desc">자체 스노클링 포인트에서 오전에 물놀이. <b>이날 외부 투어는 넣지 마세요</b> — 판랑 사막·달랏은 왕복만 5~8시간이라 3박 일정에선 손해가 큽니다.</p></div></div>
+    <div class="item pin" data-id="mudspa" tabindex="0"><div class="time">14:00</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d2)"></span>아미아나 머드스파 <b>(예약 필수)</b></p>
+      <p class="desc">전날 로비 스파 데스크에서 미리 예약. 머드 온도가 높아 더위에 약하면 짧게. <b>버려도 되는 속옷</b> 착용 권장(머드 착색). 오션뷰(창문) 캐빈 지정 가능 여부는 문의.</p></div></div>
+    <div class="item pin" data-id="honchong" tabindex="0"><div class="time">16:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d2)"></span>혼총 곶 (선택)</p>
+      <p class="desc">리조트에서 차로 7분 · 06:00–18:00 · 입장 30,000 VND. 저녁 나가는 길에 들르면 이동 낭비가 없음.</p></div></div>
+    <div class="item pin" data-id="langngon" tabindex="0"><div class="time">18:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d2)"></span>랑응온 — 시내 저녁</p>
+      <p class="desc">Hẻm 83 Nguyễn Thị Minh Khai · ~22:00. 왕복 40분.</p></div></div>
+    <div class="note"><b>명칭 참고</b> — 로드맵의 '랑홍'은 나트랑에서 널리 알려진 <b>Làng Ngon(랑응온)</b>으로 판단해 표기했습니다.</div>
+  </section>
+
+  <section class="day">
+    <div class="dayhead"><span class="num">DAY 4</span><span class="date">8/22 토</span><span class="tag" style="background:var(--d3)">체크아웃 · 귀국</span></div>
+    <div class="item pin" data-id="amiana" tabindex="0"><div class="time">~11:00</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>아미아나 마지막 아침</p>
+      <p class="desc">조식 후 프라이빗 비치. 12:00 체크아웃.</p></div></div>
+    <div class="item pin" data-id="green" tabindex="0"><div class="time">14:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>그린 월드 호텔 체크인</p>
+      <p class="desc">44 Nguyễn Thị Minh Khai · 평점 4.6 / 2,403건. 추천 구역 정중앙에 위치.</p></div></div>
+    <div class="item pin" data-id="banhmi" tabindex="0"><div class="time">17:00</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>반미판 — 기내 간식 확보</p>
+      <p class="desc">164 Bạch Đằng · ~21:30. 호텔에서 <b>도보 3분</b>. 18:15경부터 줄이 생기므로 그 전에.</p></div></div>
+    <div class="item pin" data-id="market" tabindex="0"><div class="time">17:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>야시장 · 마사지 · 쇼핑</p>
+      <p class="desc">17:00–23:00 · 호텔에서 <b>도보 5분</b>. 마사지 90분 후 호텔 복귀해 샤워하는 순서가 핵심.</p></div></div>
+    <div class="item"><div class="time">20:30</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>호텔 복귀 — 샤워 · 환복 · 짐 정리</p>
+      <p class="desc">마사지 오일 상태로 8시간 비행하는 상황을 피하는 것이 이 숙소의 존재 이유.</p></div></div>
+    <div class="item move"><div class="time">21:30</div><div class="body">
+      <p class="title">시내 → 캄란공항 (약 45분)</p>
+      <p class="desc">토요일 밤이므로 차량 <b>사전 예약</b> 권장.</p></div></div>
+    <div class="item pin" data-id="cxr" tabindex="0"><div class="time">22:20</div><div class="body">
+      <p class="title"><span class="dot" style="background:var(--d3)"></span>공항 도착 → 00:55 출발</p>
+      <p class="desc">8/23(일) 08:00 인천 도착.</p></div></div>
+
+    <table class="walk">
+      <tr><th>그린 월드 호텔 기준</th><th>직선거리</th><th>도보</th></tr>
+      <tr><td>반미판</td><td>약 190 m</td><td>3분</td></tr>
+      <tr><td>야시장</td><td>약 290 m</td><td>5분</td></tr>
+      <tr><td>짜오마오</td><td>약 460 m</td><td>7분</td></tr>
+      <tr><td>랑응온</td><td>약 560 m</td><td>8분</td></tr>
+    </table>
+    <div class="note">마지막 날 일정이 <b>전부 도보권</b>에 들어옵니다. 8/22 오후~밤에 차량 호출이 필요한 구간은 아미아나→호텔, 호텔→공항 두 번뿐입니다.</div>
+  </section>
+
+</main>
+
+<div class="mapcol"><div id="map"></div></div>
+</div>
+
+<footer class="foot">
+  <a class="prepcard" href="prep.html">
+    <div class="pc-left">
+      <div class="pc-emoji">🧳</div>
+      <div>
+        <div class="pc-title">출발 전 준비물 체크리스트</div>
+        <div class="pc-sub">PAI 사전신고 · 이동 · 환전 · 짐 싸기 · 확인 항목 — 체크하며 준비하세요</div>
+      </div>
+    </div>
+    <div class="pc-arrow">→</div>
+  </a>
+  <p class="disclaim">
+    좌표·영업시간·주소·평점은 Google Places 조회값 기준입니다. 도보 거리는 좌표 간 직선거리 계산값으로 실제 보행 경로보다 짧을 수 있습니다. 차량 이동 소요시간은 첨부 로드맵의 구간값 기준 추정치입니다. PAI 사전입국신고는 2026년 7월 기준 정보로, 출국 전 주베트남 대한민국 대사관 공지와 항공사 안내로 최종 확인하세요. AREX 시간표는 첨부 이미지 기준이며 실제 운행 시각은 코레일공항철도에서 확인하세요. 지도·글꼴은 온라인 상태에서 표시됩니다.
+  </p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var C={d0:'#33415C',d1:'#1E7A8C',d2:'#3FA796',d3:'#E08A3C',zone:'#9B7FA8',spa:'#C6588A'};
+
+var P={
+ cxr:{ll:[11.9980782,109.2189984],n:'캄란국제공항 (CXR)',d:'8/19 23:45 도착 · 8/23 00:55 출발<br>시내까지 약 45분',c:C.d0,l:'\u2708'},
+ seaesta:{ll:[12.2390194,109.191193],n:'씨에스타 호텔',d:'8/19 1박 · 116A Hồng Bàng',c:C.d0,l:'1'},
+ ponagar:{ll:[12.2653665,109.1953678],n:'포나가르 사원',d:'8/20 09:30 · 06:00–17:30 · 30,000 VND',c:C.d1,l:'2'},
+ longson:{ll:[12.2501803,109.1801753],n:'롱선사',d:'8/20 11:00 · 무릎 덮는 복장 필수',c:C.d1,l:'2'},
+ cathedral:{ll:[12.2467309,109.1881257],n:'나트랑 대성당',d:'8/20 11:45',c:C.d1,l:'2'},
+ chaomao:{ll:[12.2379442,109.1898803],n:'짜오마오 (반쎄오)',d:'8/20 12:30 · 166 Mê Linh · 11:00–22:00',c:C.d1,l:'2'},
+ amiana:{ll:[12.295209,109.2338719],n:'아미아나 리조트 나짱',d:'8/20~21 2박 · 혼총<br>프라이빗 비치 · 스노클링 · 머드풀',c:C.d2,l:'\u2605'},
+ mudspa:{ll:[12.295209,109.2338719],n:'아미아나 머드스파',d:'8/21 14:00 · 예약 필수<br>버릴 속옷 착용 · 오션뷰 캐빈 문의',c:C.d2,l:'\u2605'},
+ honchong:{ll:[12.27292,109.2064934],n:'혼총 곶',d:'8/21 16:30 (선택) · 06:00–18:00 · 30,000 VND',c:C.d2,l:'3'},
+ langngon:{ll:[12.2360079,109.1895581],n:'랑응온 (Làng Ngon)',d:'8/21 18:30 · Hẻm 83 Nguyễn Thị Minh Khai',c:C.d2,l:'3'},
+ green:{ll:[12.2385848,109.1940141],n:'그린 월드 호텔',d:'8/22 1박 · 44 Nguyễn Thị Minh Khai<br>평점 4.6 / 2,403건',c:C.d3,l:'4'},
+ market:{ll:[12.2397172,109.1964422],n:'나트랑 야시장',d:'8/22 17:30 · 17:00–23:00 · 호텔에서 도보 5분',c:C.d3,l:'4'},
+ banhmi:{ll:[12.2398487,109.1928906],n:'반미판',d:'8/22 17:00 · 164 Bạch Đằng<br>07:00–21:30 · 호텔에서 도보 3분',c:C.d3,l:'4'}
+};
+
+var Z={
+ camranh:{ll:[11.9985393,109.2354913],n:'깜란 (Cam Ranh)',d:'공항 15분 · 대형 럭셔리 리조트 밀집<br>시내와 40~50분 · <b>이번 일정 제외</b>'},
+ city:{ll:[12.2400,109.1950],n:'나트랑 시내 (City Center)',d:'맛집·인프라·가성비 숙소<br><b>8/19 · 8/22 숙박</b>'},
+ vinpearl:{ll:[12.2170491,109.2408716],n:'빈펄섬 (VinWonders)',d:'08:30–20:00 · 섬 전체가 테마파크<br><b>이번 일정 제외</b> — 하루가 통째로 필요'},
+ honchongz:{ll:[12.27292,109.2064934],n:'혼총 (Hon Chong)',d:'시내 북쪽 15~20분 · 관광과 휴양의 밸런스<br><b>8/20~21 숙박 (아미아나)</b>'},
+ ninhvan:{ll:[12.3589397,109.2776855],n:'닌반베이 (Ninh Van Bay)',d:'배로만 진입 · 최상급 프라이빗<br><b>이번 일정 제외</b>'}
+};
+
+var S={
+ queen:{ll:[12.2390137,109.1934358],n:'퀸스파 (Queen Spa)',d:'4.8 / 3,218건 · 도보 1분<br>한국 연락처(+82) · queenspa.me · 10:00–22:00'},
+ jspa:{ll:[12.239651,109.1914036],n:'J SPA',d:'4.9 / 15,917건 · 도보 5분<br>예약 권장 · 10:00–22:00'},
+ breeze:{ll:[12.2407827,109.1908979],n:'브리즈 스파 (Breeze Spa)',d:'4.9 / 6,310건 · 도보 6분<br>카톡 예약·픽업·샤워 · breezespa.kr · 08:00–23:00'},
+ aman:{ll:[12.2387525,109.1924055],n:'아만 헤리티지 스파',d:'4.9 / 12,262건 · 도보 3분<br>2시간 세션 · 10:00–22:00'},
+ hill:{ll:[12.2406946,109.1908965],n:'힐스파 (Hill Spa)',d:'5.0 / 1,306건 · 도보 6분<br>118 Bạch Đằng · hillspa.kr · 10:00–23:00'},
+ hill2:{ll:[12.2413315,109.1916048],n:'나트랑 더힐스파',d:'4.9 / 960건 · 도보 7분<br>71 Võ Trứ (힐스파와 다른 업소) · 09:30–23:00'}
+};
+
+var map=L.map('map',{scrollWheelZoom:false}).setView([12.24,109.20],11);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+
+function icon(color,label,sq){
+  return L.divIcon({html:'<div class="mk'+(sq?' sq':'')+'" style="background:'+color+'">'+label+'</div>',
+    className:'',iconSize:[22,22],iconAnchor:[11,11]});
+}
+
+var M={}, spotLayer=L.layerGroup();
+for(var k in P){
+  var p=P[k];
+  M[k]=L.marker(p.ll,{icon:icon(p.c,p.l)}).bindPopup('<b>'+p.n+'</b><br>'+p.d);
+  spotLayer.addLayer(M[k]);
+}
+spotLayer.addTo(map);
+
+var zoneLayer=L.layerGroup();
+for(var z in Z){
+  zoneLayer.addLayer(L.marker(Z[z].ll,{icon:icon(C.zone,'\u25C6',true)}).bindPopup('<b>'+Z[z].n+'</b><br>'+Z[z].d));
+}
+
+var spaLayer=L.layerGroup();
+for(var s in S){
+  spaLayer.addLayer(L.marker(S[s].ll,{icon:icon(C.spa,'\u2665')}).bindPopup('<b>'+S[s].n+'</b><br>'+S[s].d));
+}
+
+var walkLayer=L.layerGroup([
+  L.circle(P.green.ll,{radius:400,color:C.d3,weight:1.5,dashArray:'5,5',fillColor:C.d3,fillOpacity:.08})
+    .bindPopup('<b>그린 월드 호텔 도보권 400 m</b><br>야시장 · 반미판 · 마사지숍 포함')
+]).addTo(map);
+
+L.control.layers(null,{
+  '일정 스팟':spotLayer,
+  '마사지샵 ♥':spaLayer,
+  '8/22 도보권':walkLayer,
+  '나트랑 5대 지역':zoneLayer
+},{collapsed:false}).addTo(map);
+
+map.fitBounds(L.latLngBounds(Object.keys(P).map(function(k){return P[k].ll;})),{padding:[45,45]});
+
+function focus(id){
+  if(id==='market'){ if(!map.hasLayer(spaLayer)) map.addLayer(spaLayer); }
+  var p=P[id];if(!p)return;map.setView(p.ll,15,{animate:true});M[id].openPopup();
+}
+document.querySelectorAll('.item.pin').forEach(function(el){
+  el.addEventListener('click',function(){focus(el.dataset.id);});
+  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();focus(el.dataset.id);}});
+});
+</script>
+<script>
+// PWA 서비스워커 등록 (https 또는 localhost에서만 동작)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function (err) {
+      console.log('SW 등록 실패:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>
