@@ -115,6 +115,21 @@ body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans)
 .pc-sub{font-size:13px;color:#CFE7EA;margin-top:3px}
 .pc-arrow{font-size:26px;color:#8FD3D9;flex:none}
 .disclaim{margin-top:34px;font-size:11.5px;color:#8B9AA0;line-height:1.7;border-top:1px solid var(--line);padding-top:14px}
+.drink{margin-top:18px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:linear-gradient(120deg,#FBF6E8,#FDF9F0)}
+.drink summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;align-items:center;gap:14px;font-family:var(--serif);font-weight:700;font-size:18px;color:#9A5B1E}
+.drink summary::-webkit-details-marker{display:none}
+.drink summary .d-emoji{font-size:26px}
+.drink summary .d-sub{font-family:var(--sans);font-weight:300;font-size:12.5px;color:var(--ink-soft);margin-left:auto;text-align:right}
+.drink[open] summary{border-bottom:1px solid var(--line)}
+.drink .d-body{padding:6px 22px 20px}
+.drink .d-body h4{font-size:13px;color:#B85C38;margin:16px 0 6px;font-family:var(--sans);font-weight:500}
+.drink .d-body p{font-size:13px;color:var(--ink-soft);line-height:1.7;margin:0 0 6px}
+.drink .d-body b{color:var(--ink);font-weight:500}
+.drink .d-tag{display:inline-block;background:#F0E4CE;color:#8A5A1E;font-size:11px;padding:2px 9px;border-radius:999px;margin:2px 4px 2px 0}
+.drink table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:12.5px}
+.drink th,.drink td{border-bottom:1px solid var(--line);padding:7px 8px 7px 0;text-align:left;color:var(--ink-soft)}
+.drink th{font-weight:500;color:var(--ink-soft);font-size:11px;letter-spacing:.08em}
+.drink td:first-child{color:var(--ink)}
 
 .mk{width:22px;height:22px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;font-family:var(--sans)}
 .mk.sq{border-radius:3px;width:20px;height:20px;font-size:9px;opacity:.92}
@@ -192,10 +207,10 @@ body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans)
       <p class="desc">현지 도착 23:45 (시차 -2시간).</p></div></div>
     <div class="item pin" data-id="cxr" tabindex="0"><div class="time">23:45</div><div class="body">
       <p class="title"><span class="dot" style="background:var(--d0)"></span>캄란국제공항 도착</p>
-      <p class="desc">입국심사·수하물 30~40분. 그랩 앱은 <b>출국 전 카드 등록까지</b> 완료해 두기. 입국 시 <b>PAI QR코드</b> 제시.</p></div></div>
-    <div class="item move"><div class="time">00:25</div><div class="body">
-      <p class="title">공항 → 시내 (그랩 약 45분)</p>
-      <p class="desc">18번 공항버스는 18:30 운행 종료라 이 시간대엔 선택지가 아님.</p></div></div>
+      <p class="desc">입국 시 <b>PAI QR코드</b> 제시. <b>패스트트랙(신도트립·예약완료)</b>으로 입국 심사 우선 통과 — 자정 도착 줄서기 회피.</p></div></div>
+    <div class="item move"><div class="time">00:20</div><div class="body">
+      <p class="title">공항 → 씨에스타 호텔 (클룩 택시 · 약 45분)</p>
+      <p class="desc"><b>클룩 택시 예약완료</b>. 도착장에서 기사와 미팅 → 호텔 직행. 그랩 호출·요금 흥정 불필요.</p></div></div>
     <div class="item pin" data-id="seaesta" tabindex="0"><div class="time">01:10</div><div class="body">
       <p class="title"><span class="dot" style="background:var(--d0)"></span>씨에스타 호텔 체크인</p>
       <p class="desc">116A Hồng Bàng · 시내 중심. 당일은 이동만.</p></div></div>
@@ -305,6 +320,39 @@ body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--sans)
     </div>
     <div class="pc-arrow">→</div>
   </a>
+
+  <details class="drink">
+    <summary><span class="d-emoji">🍺</span>나트랑 술 가이드<span class="d-sub">탭하면 펼쳐집니다</span></summary>
+    <div class="d-body">
+      <h4>맥주 — 해산물엔 이것</h4>
+      <p><b>비어 라루(Larue)</b> — 나트랑·중부 로컬 맥주, 순하고 부드러움. <b>현지 왔으니 이건 꼭.</b><br>
+         <b>비어 사이공(Bia Saigon)</b> — 대표 맥주, 깔끔해 해산물 최고 궁합.<br>
+         333(바바바)·타이거·하노이도 무난. 병당 20,000~35,000동.</p>
+      <p>💡 현지식은 <b>맥주에 얼음</b>을 넣어 마심. 목식당에서 "beer + ice".</p>
+
+      <h4>목 해산물 식당(8/21)엔</h4>
+      <p>랍스터·새우엔 <b>비어 사이공 or 라루 + 얼음</b>. 고급지게는 달랏(Dalat) 화이트와인(기대는 낮추고 가볍게).</p>
+
+      <h4>리조트·바에서</h4>
+      <p><b>모히토</b> — 베트남 민트가 신선해 특히 맛있고 저렴. 아미아나 풀바에서 선셋 보며. 코코넛 트로피컬 칵테일은 인증샷용.</p>
+
+      <h4>베트남 특색 (경험 삼아)</h4>
+      <p><b>넵머이(Nếp Mới)</b> — 베트남 쌀소주, 29~40도로 독함. 호불호 갈리지만 "베트남 인증"용.</p>
+
+      <h4>술 대신 — 나트랑 커피</h4>
+      <p><b>에그커피</b>(계란 크림)·<b>코코넛 커피</b>(더위에 최고)·<b>연유커피</b>(진하고 달달).</p>
+
+      <table>
+        <tr><th>상황</th><th>추천</th></tr>
+        <tr><td>목 해산물(8/21)</td><td>비어 사이공/라루 + 얼음</td></tr>
+        <tr><td>아미아나 리조트</td><td>모히토·트로피컬 칵테일</td></tr>
+        <tr><td>낮 시내 카페</td><td>코코넛·에그커피</td></tr>
+        <tr><td>마트→방</td><td>라루/사이공 캔 (롯데마트 QR결제 캐시백)</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="d-tag">한 줄 요약</span> 로컬 <b>라루</b>를 얼음 넣어 · 해산물엔 <b>사이공</b> · 리조트에선 <b>모히토</b>.</p>
+    </div>
+  </details>
+
   <p class="disclaim">
     좌표·영업시간·주소·평점은 Google Places 조회값 기준입니다. 도보 거리는 좌표 간 직선거리 계산값으로 실제 보행 경로보다 짧을 수 있습니다. 차량 이동 소요시간은 첨부 로드맵의 구간값 기준 추정치입니다. PAI 사전입국신고는 2026년 7월 기준 정보로, 출국 전 주베트남 대한민국 대사관 공지와 항공사 안내로 최종 확인하세요. AREX 시간표는 첨부 이미지 기준이며 실제 운행 시각은 코레일공항철도에서 확인하세요. 지도·글꼴은 온라인 상태에서 표시됩니다.
   </p>
